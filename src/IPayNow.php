@@ -34,23 +34,23 @@ class IPayNow
     const WECHAT_PAY_CHANNEL = 13; // 用户所选渠道类型 微信：13
 
     /**
-     * 应用ID
+     * 应用ID.
      *
      * @var string
      */
     protected $appid;
 
     /**
-     * 应用Key
+     * 应用Key.
      *
      * @var string
      */
     protected $key;
 
     /**
-     * 支付渠道
+     * 支付渠道.
      *
-     * @var String
+     * @var string
      */
     protected $channel;
 
@@ -87,11 +87,13 @@ class IPayNow
     }
 
     /**
-     * 获取现在支付微信SDK
+     * 获取现在支付微信SDK.
      *
      * @param $config
-     * @return IPayNow
+     *
      * @throws InvalidConfigException
+     *
+     * @return IPayNow
      */
     public static function wechat($config)
     {
@@ -109,11 +111,13 @@ class IPayNow
     }
 
     /**
-     * 获取现在支付支付宝SDK
+     * 获取现在支付支付宝SDK.
      *
      * @param $config
-     * @return IPayNow
+     *
      * @throws InvalidConfigException
+     *
+     * @return IPayNow
      */
     public static function ali($config)
     {
@@ -131,36 +135,39 @@ class IPayNow
     }
 
     /**
-     * 预下单
+     * 预下单.
      *
      * @see https://mch.ipaynow.cn/h5Pay
+     *
      * @param array $order
-     * @return string
+     *
      * @throws \CloudyCity\IPayNowSDK\Exceptions\GatewayException
+     *
+     * @return string
      */
     public function pre(array $order)
     {
         $params = [
-            'appId' => $this->appid,
-            'deviceType' => static::TRADE_DEVICE_TYPE,                           // 设备类型
-            'frontNotifyUrl' => $this->returnUrl,                                // 前端通知URL
-            'funcode' => static::TRADE_FUNCODE,                                  // 功能码
-            'mhtCharset' => static::TRADE_CHARSET,                               // 商户字符编码
-            'mhtCurrencyType' => static::TRADE_CURRENCY_TYPE,                    // 商户订单币种类型
-            'mhtOrderAmt' => (int)($order['money'] * 100),                       // 商户订单交易金额
-            'mhtOrderDetail' => isset($order['detail']) ? $order['detail'] : '', // 商户订单详情
-            'mhtOrderName' => (string)$order['money'],                           // 商户商品名称
-            'mhtOrderNo' => $order['no'],                                        // 商户订单号
+            'appId'             => $this->appid,
+            'deviceType'        => static::TRADE_DEVICE_TYPE,                           // 设备类型
+            'frontNotifyUrl'    => $this->returnUrl,                                // 前端通知URL
+            'funcode'           => static::TRADE_FUNCODE,                                  // 功能码
+            'mhtCharset'        => static::TRADE_CHARSET,                               // 商户字符编码
+            'mhtCurrencyType'   => static::TRADE_CURRENCY_TYPE,                    // 商户订单币种类型
+            'mhtOrderAmt'       => (int) ($order['money'] * 100),                       // 商户订单交易金额
+            'mhtOrderDetail'    => isset($order['detail']) ? $order['detail'] : '', // 商户订单详情
+            'mhtOrderName'      => (string) $order['money'],                           // 商户商品名称
+            'mhtOrderNo'        => $order['no'],                                        // 商户订单号
             'mhtOrderStartTime' => date('YmdHis'),                        // 商户订单开始时间
-            'mhtOrderTimeOut' => static::TRADE_TIME_OUT,                         // 商户订单超时时间
-            'mhtOrderType' => static::TRADE_TYPE,                                // 商户交易类型
-            'mhtReserved' => isset($order['attach']) ? $order['attach'] : '',    // 商户保留域
-            'mhtSignType' => static::TRADE_SIGN_TYPE,                            // 商户签名方法
-            'notifyUrl' => $this->notifyUrl,                                     // 商户后台通知URL
-            'outputType' => static::TRADE_OUTPUT_TYPE,                           // 输出格式
-            'payChannelType' => $this->channel,                                  // 用户所选渠道类型: 12-支付宝 13-微信
-            'version' => static::VERSION,
-            'consumerCreateIp' => isset($order['ip']) ? $order['ip'] : '',       // 消费者下单ip: 微信时必填
+            'mhtOrderTimeOut'   => static::TRADE_TIME_OUT,                         // 商户订单超时时间
+            'mhtOrderType'      => static::TRADE_TYPE,                                // 商户交易类型
+            'mhtReserved'       => isset($order['attach']) ? $order['attach'] : '',    // 商户保留域
+            'mhtSignType'       => static::TRADE_SIGN_TYPE,                            // 商户签名方法
+            'notifyUrl'         => $this->notifyUrl,                                     // 商户后台通知URL
+            'outputType'        => static::TRADE_OUTPUT_TYPE,                           // 输出格式
+            'payChannelType'    => $this->channel,                                  // 用户所选渠道类型: 12-支付宝 13-微信
+            'version'           => static::VERSION,
+            'consumerCreateIp'  => isset($order['ip']) ? $order['ip'] : '',       // 消费者下单ip: 微信时必填
         ];
 
         $reqString = $this->getRequestString($params);
@@ -181,15 +188,16 @@ class IPayNow
         if ($resCode !== 'A001') {
             throw new BusinessException(urldecode($resMsg));
         }
-        $url =  isset($resArray['tn']) ? $resArray['tn'] : '';
+        $url = isset($resArray['tn']) ? $resArray['tn'] : '';
 
         return urldecode($url);
     }
 
     /**
-     * 验证回调通知
+     * 验证回调通知.
      *
      * @param $params
+     *
      * @throws InvalidSignException
      */
     public function verify($params = null)
@@ -209,9 +217,10 @@ class IPayNow
     }
 
     /**
-     * 获取下单请求的字符串
+     * 获取下单请求的字符串.
      *
      * @param array $params
+     *
      * @return string
      */
     protected function getRequestString(array $params)
@@ -221,18 +230,19 @@ class IPayNow
         $reqString = '';
         foreach ($params as $k => $v) {
             if ($v != '') {
-                $reqString .= $k . static::TRADE_QSTRING_EQUAL . urlencode($v) . static::TRADE_QSTRING_SPLIT;
+                $reqString .= $k.static::TRADE_QSTRING_EQUAL.urlencode($v).static::TRADE_QSTRING_SPLIT;
             }
         }
-        $reqString .= static::TRADE_SIGNATURE_KEY . static::TRADE_QSTRING_EQUAL . $signature;
+        $reqString .= static::TRADE_SIGNATURE_KEY.static::TRADE_QSTRING_EQUAL.$signature;
 
         return $reqString;
     }
 
     /**
-     * 计算签名
+     * 计算签名.
      *
      * @param array $params 参数
+     *
      * @return string
      */
     protected function getSignature(array $params)
@@ -245,15 +255,16 @@ class IPayNow
             }
             $signature .= "{$key}={$value}&";
         }
-        $signature = md5($signature . md5($this->key));
+        $signature = md5($signature.md5($this->key));
 
         return $signature;
     }
 
     /**
-     * 过滤参数
+     * 过滤参数.
      *
      * @param array $params
+     *
      * @return array
      */
     protected function filterParams(array $params)
