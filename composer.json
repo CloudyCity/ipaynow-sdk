@@ -1,0 +1,35 @@
+
+{
+    "name": "cloudycity/ipaynow-sdk",
+    "description": "现在支付 SDK",
+    "keywords": [
+        "ipaynow",
+        "sdk"
+    ] ,
+    "require": {
+        "php": ">=5.6.0",
+        "guzzlehttp/guzzle": "^6.5"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "cloudycity",
+            "email": "cloudycity@foxmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "CloudyCity\\IPayNowSDK\\": "src/"
+        },
+        "files": [
+            "src/helper.php"
+        ]
+    },
+    "require-dev": {
+        "squizlabs/php_codesniffer": "^3"
+    },
+    "scripts": {
+        "check-style": "phpcs -p --standard=PSR2 src/",
+        "fix-style": "phpcbf -p --standard=PSR2 src/"
+    }
+}
