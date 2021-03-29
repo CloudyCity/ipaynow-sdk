@@ -261,15 +261,18 @@ class IPayNow
         $result = [];
         $funcode = $params[static::TRADE_FUNCODE_KEY];
         foreach ($params as $key => $value) {
-            if (($funcode == static::TRADE_FUNCODE) && !($key == static::TRADE_SIGNATURE_KEY || $key == static::SIGNATURE_KEY)) {
+            if (($funcode == static::TRADE_FUNCODE) && !($key == static::TRADE_SIGNATURE_KEY
+                    || $key == static::SIGNATURE_KEY)) {
                 $result[$key] = $value;
                 continue;
             }
-            if (($funcode == static::NOTIFY_FUNCODE || $funcode == static::FRONT_NOTIFY_FUNCODE) && !($key == static::SIGNATURE_KEY)) {
+            if (($funcode == static::NOTIFY_FUNCODE || $funcode == static::FRONT_NOTIFY_FUNCODE)
+                && !($key == static::SIGNATURE_KEY)) {
                 $result[$key] = $value;
                 continue;
             }
-            if (($funcode == static::QUERY_FUNCODE) && !($key == static::TRADE_SIGNATURE_KEY || $key == static::SIGNATURE_KEY)) {
+            if (($funcode == static::QUERY_FUNCODE) && !($key == static::TRADE_SIGNATURE_KEY
+                    || $key == static::SIGNATURE_KEY)) {
                 $result[$key] = $value;
                 continue;
             }
