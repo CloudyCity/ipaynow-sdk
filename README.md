@@ -7,13 +7,13 @@
 [![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
+## Requirement
+- PHP 5.6 +
+
 ## Installation
 ```bash
 composer require cloudycity/ipaynow-sdk:*
 ```
-
-## Requirement
-- PHP 5.6 +
 
 ## Usage
 ```php
@@ -50,7 +50,6 @@ try {
 } catch (InvalidSignException $e) {
     //
 }
-
 ```
 
 ## License

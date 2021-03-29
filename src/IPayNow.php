@@ -149,25 +149,25 @@ class IPayNow
     {
         $params = [
             'appId'             => $this->appid,
-            'deviceType'        => static::TRADE_DEVICE_TYPE,                           // 设备类型
-            'frontNotifyUrl'    => $this->returnUrl,                                // 前端通知URL
-            'funcode'           => static::TRADE_FUNCODE,                                  // 功能码
-            'mhtCharset'        => static::TRADE_CHARSET,                               // 商户字符编码
-            'mhtCurrencyType'   => static::TRADE_CURRENCY_TYPE,                    // 商户订单币种类型
-            'mhtOrderAmt'       => (int) ($order['money'] * 100),                       // 商户订单交易金额
+            'deviceType'        => static::TRADE_DEVICE_TYPE, // 设备类型
+            'frontNotifyUrl'    => $this->returnUrl, // 前端通知URL
+            'funcode'           => static::TRADE_FUNCODE, // 功能码
+            'mhtCharset'        => static::TRADE_CHARSET, // 商户字符编码
+            'mhtCurrencyType'   => static::TRADE_CURRENCY_TYPE, // 商户订单币种类型
+            'mhtOrderAmt'       => (int) ($order['money'] * 100), // 商户订单交易金额
             'mhtOrderDetail'    => isset($order['detail']) ? $order['detail'] : '', // 商户订单详情
-            'mhtOrderName'      => (string) $order['money'],                           // 商户商品名称
-            'mhtOrderNo'        => $order['no'],                                        // 商户订单号
-            'mhtOrderStartTime' => date('YmdHis'),                        // 商户订单开始时间
-            'mhtOrderTimeOut'   => static::TRADE_TIME_OUT,                         // 商户订单超时时间
-            'mhtOrderType'      => static::TRADE_TYPE,                                // 商户交易类型
-            'mhtReserved'       => isset($order['attach']) ? $order['attach'] : '',    // 商户保留域
-            'mhtSignType'       => static::TRADE_SIGN_TYPE,                            // 商户签名方法
-            'notifyUrl'         => $this->notifyUrl,                                     // 商户后台通知URL
-            'outputType'        => static::TRADE_OUTPUT_TYPE,                           // 输出格式
-            'payChannelType'    => $this->channel,                                  // 用户所选渠道类型: 12-支付宝 13-微信
+            'mhtOrderName'      => (string) $order['money'], // 商户商品名称
+            'mhtOrderNo'        => $order['no'], // 商户订单号
+            'mhtOrderStartTime' => date('YmdHis'), // 商户订单开始时间
+            'mhtOrderTimeOut'   => static::TRADE_TIME_OUT, // 商户订单超时时间
+            'mhtOrderType'      => static::TRADE_TYPE, // 商户交易类型
+            'mhtReserved'       => isset($order['attach']) ? $order['attach'] : '', // 商户保留域
+            'mhtSignType'       => static::TRADE_SIGN_TYPE, // 商户签名方法
+            'notifyUrl'         => $this->notifyUrl, // 商户后台通知URL
+            'outputType'        => static::TRADE_OUTPUT_TYPE, // 输出格式
+            'payChannelType'    => $this->channel, // 用户所选渠道类型: 12-支付宝 13-微信
             'version'           => static::VERSION,
-            'consumerCreateIp'  => isset($order['ip']) ? $order['ip'] : '',       // 消费者下单ip: 微信时必填
+            'consumerCreateIp'  => isset($order['ip']) ? $order['ip'] : '', // 消费者下单ip: 微信时必填
         ];
 
         $reqString = $this->getRequestString($params);
@@ -272,8 +272,8 @@ class IPayNow
         $result = [];
         $funcode = $params[static::TRADE_FUNCODE_KEY];
         foreach ($params as $key => $value) {
-            if (($funcode == static::TRADE_FUNCODE) && !($key == static::TRADE_SIGNATURE_KEY
-                    || $key == static::SIGNATURE_KEY)) {
+            if (($funcode == static::TRADE_FUNCODE)
+                && !($key == static::TRADE_SIGNATURE_KEY || $key == static::SIGNATURE_KEY)) {
                 $result[$key] = $value;
                 continue;
             }
@@ -282,8 +282,8 @@ class IPayNow
                 $result[$key] = $value;
                 continue;
             }
-            if (($funcode == static::QUERY_FUNCODE) && !($key == static::TRADE_SIGNATURE_KEY
-                    || $key == static::SIGNATURE_KEY)) {
+            if (($funcode == static::QUERY_FUNCODE) &&
+                !($key == static::TRADE_SIGNATURE_KEY || $key == static::SIGNATURE_KEY)) {
                 $result[$key] = $value;
                 continue;
             }
