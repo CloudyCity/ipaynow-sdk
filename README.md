@@ -22,17 +22,18 @@ use CloudyCity\IPayNowSDK\Exceptions\Exceptions;
 use CloudyCity\IPayNowSDK\Exceptions\InvalidSignException;
 
 $config = [
-    'appid' => '123456789012345',
-    'key' => 'abcdefghijklmnopqrstuvwxyz123456789012',
-    'notify_url' => 'http://cloudycity.me/notify.php',
-    'return_url' => 'http://cloudycity.me/return.php',
+    'appid' => '123456789012345',                      // 商户应用唯一标识
+    'key' => 'abcdefghijklmnopqrstuvwxyz123456789012', // 密钥
+    'notify_url' => 'http://cloudycity.me/notify.php', // 异步回调地址
+    'return_url' => 'http://cloudycity.me/return.php', // 同步回调地址
 ];
 
 $order = [
-    'money' => 600,
-    'attach' => '',    // 可选
-    'detail' => '',    // 可选
-    'ip' => '0.0.0.0', // 可选
+    'no' => '1234560', // 订单号
+    'money' => 600,    // 订单金额(单位: 分)
+    'attach' => '',    // 可选，商户保留域
+    'detail' => '',    // 可选，订单详情
+    'ip' => '0.0.0.0', // 可选，支付端IP
 ];
 
 // 拉起支付
