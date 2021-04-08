@@ -102,8 +102,8 @@ class IPayNow
                 $config['appid'],
                 $config['key'],
                 static::WECHAT_PAY_CHANNEL,
-                $config['notify_url'],
-                $config['return_url']
+                isset($config['notify_url']) ? $config['notify_url'] : '',
+                isset($config['return_url']) ? $config['return_url'] : ''
             );
         } catch (\Exception $e) {
             throw new InvalidConfigException($e->getMessage());
@@ -126,8 +126,8 @@ class IPayNow
                 $config['appid'],
                 $config['key'],
                 static::ALI_PAY_CHANNEL,
-                $config['notify_url'],
-                $config['return_url']
+                isset($config['notify_url']) ? $config['notify_url'] : '',
+                isset($config['return_url']) ? $config['return_url'] : ''
             );
         } catch (\Exception $e) {
             throw new InvalidConfigException($e->getMessage());

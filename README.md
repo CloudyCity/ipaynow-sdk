@@ -24,8 +24,8 @@ use CloudyCity\IPayNowSDK\Exceptions\InvalidSignException;
 $config = [
     'appid' => '123456789012345',                      // 商户应用唯一标识
     'key' => 'abcdefghijklmnopqrstuvwxyz123456789012', // 密钥
-    'notify_url' => 'http://cloudycity.me/notify.php', // 异步回调地址
-    'return_url' => 'http://cloudycity.me/return.php', // 同步回调地址
+    'notify_url' => 'http://cloudycity.me/notify.php', // 异步回调地址 (拉起支付时必选，只用于验证回调时可选)
+    'return_url' => 'http://cloudycity.me/return.php', // 同步回调地址 (拉起支付时必选，只用于验证回调时可选)
 ];
 
 $order = [
