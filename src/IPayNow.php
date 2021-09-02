@@ -154,7 +154,7 @@ class IPayNow
             'funcode'           => static::TRADE_FUNCODE, // 功能码
             'mhtCharset'        => static::TRADE_CHARSET, // 商户字符编码
             'mhtCurrencyType'   => static::TRADE_CURRENCY_TYPE, // 商户订单币种类型
-            'mhtOrderAmt'       => (int) ($order['money'] * 100), // 商户订单交易金额
+            'mhtOrderAmt'       => (int) bcmul($order['money'], 100, 0), // 商户订单交易金额
             'mhtOrderDetail'    => isset($order['detail']) ? $order['detail'] : '', // 商户订单详情
             'mhtOrderName'      => (string) $order['money'], // 商户商品名称
             'mhtOrderNo'        => $order['no'], // 商户订单号
